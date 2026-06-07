@@ -252,6 +252,51 @@
       line-height: 1.65;
     }
 
+    /* ── WORK ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .work-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .work-card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .work-card-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .work-card-body h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .work-card-body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 600px) {
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── PRICING ── */
     #pricing {
       text-align: center;
@@ -477,6 +522,7 @@
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#services" data-i18n="navServices">Services</a></li>
+        <li><a href="#work" data-i18n="navWork">Work</a></li>
         <li><a href="#pricing" data-i18n="navPricing">Pricing</a></li>
         <li><a href="#contact" data-i18n="navContact">Contact</a></li>
       </ul>
@@ -545,6 +591,31 @@
 
   <hr class="divider" />
 
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label" data-i18n="workLabel">Our work</p>
+    <h2 class="section-title" data-i18n="workTitle">Projects we've built</h2>
+    <p class="section-intro" data-i18n="workIntro">A look at some of the cafés we've worked with.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <img src="hakwah_preview.png" alt="Hakwah Coffee website preview" />
+        <div class="work-card-body">
+          <h3 data-i18n="work1Name">Hakwah Coffee</h3>
+          <p data-i18n="work1Desc">A warm, minimal site for a specialty coffee shop in Riyadh.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="basementers_preview.png" alt="Basementers website preview" />
+        <div class="work-card-body">
+          <h3 data-i18n="work2Name">Basementers</h3>
+          <p data-i18n="work2Desc">A bold, atmospheric site for an underground café concept.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
   <!-- PRICING -->
   <section id="pricing">
     <p class="section-label" data-i18n="pricingLabel">Pricing</p>
@@ -596,6 +667,7 @@
     const translations = {
       en: {
         navServices:     'Services',
+        navWork:         'Work',
         navPricing:      'Pricing',
         navContact:      'Contact',
         heroTag:         'Riyadh, Saudi Arabia',
@@ -617,6 +689,13 @@
         s5Body:          'Bilingual websites with full RTL Arabic support included.',
         s6Title:         'Fast Delivery',
         s6Body:          'We work quickly. From first call to live site, most projects are done within 5 days.',
+        workLabel:       'Our work',
+        workTitle:       'Projects we&rsquo;ve built',
+        workIntro:       'A look at some of the caf&eacute;s we&rsquo;ve worked with.',
+        work1Name:       'Hakwah Coffee',
+        work1Desc:       'A warm, minimal site for a specialty coffee shop in Riyadh.',
+        work2Name:       'Basementers',
+        work2Desc:       'A bold, atmospheric site for an underground caf&eacute; concept.',
         pricingLabel:    'Pricing',
         pricingTitle:    'Straightforward pricing',
         pricingIntro:    'No hidden fees. One fixed price for a website that&rsquo;s built right.',
@@ -639,6 +718,7 @@
       },
       ar: {
         navServices:     'الخدمات',
+        navWork:         'أعمالنا',
         navPricing:      'الأسعار',
         navContact:      'تواصل',
         heroTag:         'الرياض، المملكة العربية السعودية',
@@ -660,6 +740,13 @@
         s5Body:          'مواقع ثنائية اللغة مع دعم كامل للغة العربية وخاصية RTL.',
         s6Title:         'تسليم سريع',
         s6Body:          'نعمل بسرعة. من أول مكالمة حتى الإطلاق، معظم المشاريع تنتهي خلال 5 أيام.',
+        workLabel:       'أعمالنا',
+        workTitle:       'مشاريع أنجزناها',
+        workIntro:       'نظرة على بعض الكافيهات التي عملنا معها.',
+        work1Name:       'قهوة حكواه',
+        work1Desc:       'موقع دافئ وبسيط لمحل قهوة متخصص في الرياض.',
+        work2Name:       'Basementers',
+        work2Desc:       'موقع جريء وغامق لمفهوم كافيه تحت الأرض.',
         pricingLabel:    'الأسعار',
         pricingTitle:    'أسعار واضحة',
         pricingIntro:    'لا رسوم خفية. سعر ثابت لموقع مبني بشكل صحيح.',
