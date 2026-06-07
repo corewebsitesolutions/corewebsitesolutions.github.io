@@ -265,6 +265,38 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
+      position: relative;
+    }
+
+    /* Tap-to-expand hint badge — hidden on desktop (hover replaces it), always shown on touch */
+    .work-card::after {
+      content: '⤢';
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.42);
+      color: #fff;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .work-card:hover::after {
+      opacity: 1;
+    }
+
+    @media (hover: none) {
+      /* Touch devices: always show the badge */
+      .work-card::after {
+        opacity: 1;
+      }
     }
 
     .work-card img {
@@ -295,6 +327,75 @@
       .work-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      overscroll-behavior: contain;   /* stop pull-to-refresh behind modal   */
+      touch-action: none;             /* prevent scroll bleed on iOS         */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      transform: scale(0.93);
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .lightbox.open .lightbox-img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .work-card img {
+      cursor: zoom-in;
+      transition: opacity 0.2s;
+    }
+
+    .work-card img:hover {
+      opacity: 0.88;
     }
 
     /* ── PRICING ── */
@@ -511,6 +612,25 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      /* Lightbox on mobile */
+      .lightbox {
+        padding: 0.75rem;
+        align-items: center;
+      }
+
+      .lightbox-img {
+        max-height: 85svh;    /* svh = small viewport height, avoids address-bar overlap */
+        border-radius: 6px;
+      }
+
+      .lightbox-close {
+        width: 48px;
+        height: 48px;
+        top: env(safe-area-inset-top, 0.75rem);
+        right: env(safe-area-inset-right, 0.75rem);
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -657,6 +777,12 @@
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#x2715;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <p data-i18n="footerText">&copy; 2026 CoreWebSolutions. Riyadh, Saudi Arabia.</p>
@@ -783,6 +909,49 @@
     }
 
     opts.forEach(o => o.addEventListener('click', () => applyLanguage(o.dataset.lang)));
+
+    // ── LIGHTBOX ──
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    let   savedScrollY  = 0;
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add('open');
+
+      // iOS Safari fix: overflow:hidden on <body> doesn't stop scroll;
+      // freezing body position does.
+      savedScrollY = window.scrollY;
+      document.body.style.position   = 'fixed';
+      document.body.style.top        = `-${savedScrollY}px`;
+      document.body.style.width      = '100%';
+      document.body.style.overflowY  = 'scroll'; /* keep scrollbar width stable */
+
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+
+      // Restore scroll position after un-freezing body
+      document.body.style.position  = '';
+      document.body.style.top       = '';
+      document.body.style.width     = '';
+      document.body.style.overflowY = '';
+      window.scrollTo(0, savedScrollY);
+    }
+
+    // Attach click/tap to every work card image
+    document.querySelectorAll('.work-card img').forEach(img => {
+      img.addEventListener('click', () => openLightbox(img.src, img.alt));
+    });
+
+    // Close on button, backdrop tap, or Escape key
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 
 </body>
