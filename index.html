@@ -525,6 +525,13 @@
       text-decoration: none;
     }
 
+    .contact-or {
+      font-size: 0.8rem;
+      opacity: 0.4;
+      margin: 1.5rem 0 1.25rem;
+      font-weight: 300;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -767,12 +774,21 @@
     <p class="section-intro" data-i18n="contactIntro">Ready to get your café online? Reach out on Instagram and we'll take it from there.</p>
     <div class="contact-box">
       <h3 data-i18n="contactBoxTitle">Reach us on Instagram</h3>
-      <p data-i18n="contactBoxBody">Send us a DM with a bit about your café and we'll get back to you within a day.</p>
+      <p data-i18n="contactBoxBody">Send us a DM or email with a bit about your café and we'll get back to you within a day.</p>
       <a href="https://www.instagram.com/corewebsitesolutions" target="_blank" rel="noopener noreferrer" class="btn btn-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
         @corewebsitesolutions
       </a>
-      <a href="https://www.instagram.com/corewebsitesolutions" target="_blank" rel="noopener noreferrer" class="ig-handle">
-        instagram.com/corewebsitesolutions
+      <a href="mailto:usecoreweb@gmail.com" class="btn btn-white" style="margin-top:1rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+        usecoreweb@gmail.com
       </a>
     </div>
   </section>
@@ -786,7 +802,7 @@
   <!-- FOOTER -->
   <footer>
     <p data-i18n="footerText">&copy; 2026 CoreWebSolutions. Riyadh, Saudi Arabia.</p>
-    <a href="https://www.instagram.com/corewebsitesolutions" target="_blank" rel="noopener noreferrer">@corewebsitesolutions</a>
+    <a href="mailto:usecoreweb@gmail.com">usecoreweb@gmail.com</a>
   </footer>
 
   <script>
@@ -839,7 +855,9 @@
         contactTitle:    'Let&rsquo;s talk',
         contactIntro:    'Ready to get your caf&eacute; online? Reach out on Instagram and we&rsquo;ll take it from there.',
         contactBoxTitle: 'Reach us on Instagram',
-        contactBoxBody:  'Send us a DM with a bit about your caf&eacute; and we&rsquo;ll get back to you within a day.',
+        contactBoxBody:  'Send us a DM or email with a bit about your caf&eacute; and we&rsquo;ll get back to you within a day.',
+        contactOr:       'or',
+        contactEmailCta: 'Email us',
         footerText:      '&copy; 2026 CoreWebSolutions. Riyadh, Saudi Arabia.',
       },
       ar: {
@@ -890,7 +908,9 @@
         contactTitle:    'لنتحدث',
         contactIntro:    'هل أنت مستعد لإطلاق موقع كافيهك؟ تواصل معنا عبر إنستغرام وسنهتم بالباقي.',
         contactBoxTitle: 'تواصل معنا عبر إنستغرام',
-        contactBoxBody:  'أرسل لنا رسالة مباشرة عن كافيهك وسنرد عليك في غضون يوم.',
+        contactBoxBody:  'أرسل لنا رسالة مباشرة أو بريدًا إلكترونيًا عن كافيهك وسنرد عليك في غضون يوم.',
+        contactOr:       'أو',
+        contactEmailCta: 'راسلنا',
         footerText:      'جميع الحقوق محفوظة. CoreWebSolutions 2026.',
       }
     };
