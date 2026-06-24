@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -654,9 +654,9 @@
         <li><a href="#contact" data-i18n="navContact">Contact</a></li>
       </ul>
       <span class="lang-toggle">
-        <span class="lang-opt active" data-lang="en">EN</span>
+        <span class="lang-opt" data-lang="en">EN</span>
         <span class="lang-sep">·</span>
-        <span class="lang-opt" data-lang="ar">AR</span>
+        <span class="lang-opt active" data-lang="ar">AR</span>
       </span>
     </div>
   </nav>
@@ -929,6 +929,8 @@
     }
 
     opts.forEach(o => o.addEventListener('click', () => applyLanguage(o.dataset.lang)));
+
+    applyLanguage('ar');
 
     // ── LIGHTBOX ──
     const lightbox      = document.getElementById('lightbox');
